@@ -22,3 +22,4 @@ Pull requests welcome!
 ## License
 
 MIT
+# Clean script for quick cleanup
