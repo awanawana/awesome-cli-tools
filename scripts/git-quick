@@ -1,0 +1,33 @@
+#!/bin/bash
+# Git Quick - Useful git shortcuts
+
+case "$1" in
+  "s"|"status")
+    git status
+    ;;
+  "a"|"add")
+    git add .
+    ;;
+  "c"|"commit")
+    git commit -m "$2"
+    ;;
+  "p"|"push")
+    git push
+    ;;
+  "l"|"log")
+    git log --oneline -10
+    ;;
+  "d"|"diff")
+    git diff
+    ;;
+  *)
+    echo "Usage: git-quick [command]"
+    echo "Commands:"
+    echo "  s, status   - Show git status"
+    echo "  a, add      - Stage all changes"
+    echo "  c, commit   - Commit with message"
+    echo "  p, push     - Push to remote"
+    echo "  l, log      - Show recent commits"
+    echo "  d, diff     - Show changes"
+    ;;
+esac

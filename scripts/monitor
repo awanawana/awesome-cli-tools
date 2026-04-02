@@ -1,0 +1,26 @@
+#!/bin/bash
+# System Monitor - Quick system stats
+
+echo "=== System Monitor ==="
+echo ""
+echo "📅 Date: $(date)"
+echo "⏰ Uptime: $(uptime -p 2>/dev/null || uptime)"
+echo ""
+echo "💻 System:"
+echo "  Hostname: $(hostname)"
+echo "  OS: $(uname -s)"
+echo "  Kernel: $(uname -r)"
+echo ""
+echo "🖥️  CPU:"
+echo "  Usage: $(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%*.*/\1/" | awk '{print $1}')%"
+echo "  Model: $(sysctl -n machdep.cpu.brand_string 2>/dev/null || lscpu | grep "Model name" | sed 's/.*: //')"
+echo ""
+echo "💾 Memory:"
+echo "  Used: $(free -h 2>/dev/null | awk '/^Mem:/ {print $3}' || vm_stat | head -4)"
+echo "  Total: $(free -h 2>/dev/null | awk '/^Mem:/ {print $2}' || sysctl -n hw.memsize | awk '{print $1/1024/1024/1024" GB"}')"
+echo ""
+echo "💿 Disk:"
+df -h / | tail -1 | awk '{print "  Used: " $3 " / " $2 " (" $5 ")"}'
+echo ""
+echo "🌐 Network:"
+echo "  Local IP: $(ipconfig getifaddr en0 2>/dev/null || hostname -I | awk '{print $1}')"
